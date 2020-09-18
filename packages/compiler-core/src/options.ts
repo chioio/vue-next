@@ -8,6 +8,20 @@ import {
 } from './transform'
 import { ParserPlugin } from '@babel/parser'
 
+/**
+ * Parser(解析) options interface ->
+ *  native tag                              [<div></div>, <p></p>...]
+ *  native self-close tag                   [<img/>, <br/>, <hr/>]
+ *  preserve(保留) whitespace tag             [<pre></pre>]
+ *  platform-specific build-in components   [<Transition>]
+ *  user custom elements
+ *  tag namespace (tag, parent node)
+ *  test parsing mode
+ *  delimiters(分隔符)
+ *  decode entities for DOM compilers
+ *  error handler
+ *  comments(keep comments in the template AST(abstract syntax tree), even in production)
+ */
 export interface ParserOptions {
   /**
    * e.g. platform native elements, e.g. `<div>` for browsers
@@ -55,16 +69,38 @@ export interface ParserOptions {
   comments?: boolean
 }
 
+/**
+ * Hoist(提升) transform type
+ */
 export type HoistTransform = (
   children: TemplateChildNode[],
   context: TransformContext,
   parent: ParentNode
 ) => void
 
+/**
+ * Binding meta data interface ->
+ *  data or props or setup or options
+ */
 export interface BindingMetadata {
   [key: string]: 'data' | 'props' | 'setup' | 'options'
 }
 
+/**
+ * Transform options interface ->
+ *  node transform
+ *  directive transform
+ *  transform hoist
+ *  built-in component
+ *  prefix identifiers                 [{{ foo }} -> `_ctx.foo`]
+ *  static hoist
+ *  cache handler
+ *  expression plugin(parser plugin)
+ *  SFC(single file component [.vue]) scoped styles ID
+ *  ssr(via the `ssrRender` option instead of `render`)
+ *  ssr CSS variables(SFC `<style vars></style>` injection string)
+ *  binding meta data
+ */
 export interface TransformOptions {
   /**
    * An array of node transforms to be applied to every AST node.
@@ -147,6 +183,19 @@ export interface TransformOptions {
   onError?: (error: CompilerError) => void
 }
 
+/**
+ * Code generate options ->
+ *  ES mode
+ *  source map code
+ *  source map filename
+ *  SFC scoped styles ID
+ *  optimize bindings(onley used for webpack code-split)
+ *  runtime module name(`vue`)
+ *  runtime global variable name (`Vue`)
+ *  perfix identifiers
+ *  binding meta data
+ *  ssr
+ */
 export interface CodegenOptions {
   /**
    * - `module` mode will generate ES module import statements for helpers
@@ -196,4 +245,8 @@ export interface CodegenOptions {
   ssr?: boolean
 }
 
+/**
+ * Compiler options type
+ * ParserOptions and TransformOptions and CodegenOptions
+ */
 export type CompilerOptions = ParserOptions & TransformOptions & CodegenOptions
