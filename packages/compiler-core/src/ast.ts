@@ -13,7 +13,7 @@ import {
 import { PropsExpression } from './transforms/transformElement'
 import { ImportItem, TransformContext } from './transform'
 
-// Vue template is a platform-agnostic superset of HTML (syntax only).
+// Vue template is a platform-agnostic(平台无关的) superset of HTML (syntax only).
 // More namespaces like SVG and MathML are declared by platform specific
 // compilers.
 export type Namespace = number
@@ -28,17 +28,17 @@ export const enum NodeTypes {
   TEXT,
   COMMENT,
   SIMPLE_EXPRESSION,
-  INTERPOLATION,
+  INTERPOLATION,              // 插值
   ATTRIBUTE,
-  DIRECTIVE,
+  DIRECTIVE,                  // 指令
   // containers
-  COMPOUND_EXPRESSION,
+  COMPOUND_EXPRESSION,        // 复合表达式
   IF,
   IF_BRANCH,
   FOR,
   TEXT_CALL,
   // codegen
-  VNODE_CALL,
+  VNODE_CALL,                 // 虚拟节点调用
   JS_CALL_EXPRESSION,
   JS_OBJECT_EXPRESSION,
   JS_PROPERTY,
